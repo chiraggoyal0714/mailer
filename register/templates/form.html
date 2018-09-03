@@ -1,0 +1,92 @@
+<html>
+<head>
+  <title> Mail Web </title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="b.png"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <style type="text/css">
+  fieldset {
+    border:1px solid #999;
+    border-radius:8px;
+    box-shadow:0 0 10px #999;
+}
+legend {
+    background:#fff;
+}
+#popUpYes
+{
+  width: 60px;
+  height: 30px;
+  background-color: white;
+  align: center;
+}
+#popUpYes:hover
+{
+  background-color:#DCDCDC;
+}
+#inp:hover{
+   background-color: #DCDCDC;
+}
+</style>
+</head>
+<body  >
+    <div class="container-fluid ">
+        <nav class="navbar navbar-inverse ">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                       MailWeb
+                   </a>
+               </div>
+           </div>
+       </nav>
+       <div class="row">
+          <div class="col-md-offset-1 col-md-10">
+            <div  class="col-md-6">
+                <fieldset>
+                    <form action = "{% url 'update' %}" method = "POST" style="margin:1em">
+                      {% csrf_token %}
+                      <div class="form-group" >
+                        <label for="exampleInputEmail1">Mail List Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Mail List Name" >
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputtestarea">Email: (in csv)</label>
+                        <textarea class="form-control" rows="5" name="email" ></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </fieldset>
+        </div>
+
+        <div  class="col-md-6">
+            <fieldset>
+                <form action = "{% url 'sendSimpleEmail' %}" method = "POST" style="margin:1em">
+                    {% csrf_token %}
+                    <div class="form-group" >
+                        <label for="exampleInputEmail1">List Name: </label>
+                        <select class="form-control" name="listid">                         
+                          {% for mails in all_mails %}
+                          <option value="{{mails.id}}">{{mails.name}}</option>
+                          {%endfor%}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputtestarea">Subject</label>
+                        <input type="text" class="form-control" name="subject" placeholder="subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputtestarea">Content</label>
+                        <textarea class="form-control" rows="5" name="content" placeholder="Content"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </fieldset>
+        </div>
+
+    </div>
+</div>
+</div>
+</body>
+</html>
